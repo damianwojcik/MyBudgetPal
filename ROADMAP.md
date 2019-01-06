@@ -1,4 +1,3 @@
 # Todo:
-- add state to Diary component
+- remove entry Handler (from State!)
 - add 'add' route
-- count Status component numbers based on diary

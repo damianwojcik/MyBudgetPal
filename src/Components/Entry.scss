@@ -11,4 +11,16 @@
     &__price {
         margin-left: auto;
     }
+    &__deleteBtn {
+        display: none;
+        background-color: red;
+        padding: 0 5px;
+        margin-left: 10px;
+        color: #fff;
+    }
+    &:hover {
+        .entry__deleteBtn {
+            display: block;
+        }
+    }
 }
