@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import Header from './Components/Header';
+import Status from './Components/Status';
+import BottomBar from './Components/BottomBar';
+import Diary from './Components/Diary';
 
 class App extends Component {
+  state = {
+    month: 'January',
+    incomes: 642.32,
+    expenses: 231.51,
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Header month={this.state.month} />
+        <Status {...this.state} />
+        <Diary />
+        <BottomBar />
       </div>
     );
   }

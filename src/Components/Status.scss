@@ -1,0 +1,8 @@
+.status {
+    display: flex;
+    background: #fff;
+    &__col {
+        width: 33.333%;
+        padding: 18px 0 12px;
+    }
+}
