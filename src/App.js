@@ -55,24 +55,37 @@ class App extends Component {
   }
   calculateStatus() {
     const data = [...this.state.data];
-    const status = {...this.state.status};
+    let status = {
+      incomes: 0,
+      expenses: 0
+    };
 
     let costs = data.filter((item) => item.price < 0);
+    let profits = data.filter((item) => item.price > 0);
     costs.forEach(item => {
       status.expenses += item.price;
     })
-    let profits = data.filter((item) => item.price > 0);
     profits.forEach(item => {
       status.incomes += item.price;
     })
-    this.setState({ status })
+    status.incomes = status.incomes.toFixed(2);
+    status.expenses = status.expenses.toFixed(2);
+    this.setState({ status: status })
+  }
+  deleteEntryHandler(index) {
+    const entryIndex = this.state.data.findIndex(entry => {
+      return entry.id === index;
+    });
+    const data = [...this.state.data];
+    data.splice(entryIndex, 1);
+    this.setState({ data: data }, () => this.calculateStatus());
   }
   render() {
     return (
       <div className="App">
         <Header month={this.state.month} />
         <Status status={this.state.status} />
-        <Diary data={this.state.data} />
+        <Diary data={this.state.data} click={this.deleteEntryHandler.bind(this)} />
         <BottomBar />
       </div>
     );

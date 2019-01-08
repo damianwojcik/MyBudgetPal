@@ -16,6 +16,7 @@ const Diary = (props) => {
                                     icon={entry.type}
                                     title={entry.title}
                                     price={entry.price}
+                                    click={() => props.click(entry.id)}
                                 />
                             )
                         })}
