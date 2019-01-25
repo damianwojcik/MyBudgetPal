@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F5F7FB;
 }
 
 code {
@@ -39,4 +40,9 @@ button {
   cursor: pointer;
   outline: none;
   text-align: inherit;
+}
+
+a,
+button {
+  transition: all 0.3s ease;
 }

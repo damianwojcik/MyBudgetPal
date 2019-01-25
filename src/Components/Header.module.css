@@ -1,17 +1,14 @@
-@import "../variables.scss";
-
-.header {
-    background: $primary;
+.wrapper {
+    background: #152975;
     position: relative;
     padding: 12px 15px;
     font-size: 17px;
     font-weight: 500;
-    button {
-        color: #fff;
-        padding: 0 3px;
-    }
 }
-
+.btn {
+    color: #fff;
+    padding: 0 3px;
+}
 .add {
     position: absolute;
     right: 15px;

@@ -1,20 +1,20 @@
 import React from 'react';
-import './BottomBar.scss';
+import classes from './BottomBar.module.css';
 
-const BottomBar = (props) => {
+const BottomBar = ( props ) => {
     return (
-        <div className="bottombar">
-            <div className="bottombar__col">
-                <a className="bottombar__link" href="/">Home</a>
+        <div className={classes.wrapper}>
+            <div className={classes.col}>
+                <a className={classes.link} href="/">Home</a>
             </div>
-            <div className="bottombar__col">
-                <a className="bottombar__link active" href="/">Diary</a>
+            <div className={classes.col} >
+                <a className={classes.link} href="/">Diary</a>
             </div>
-            <div className="bottombar__col">
-                <a className="bottombar__link" href="/">Stats</a>
+            <div className={classes.col}>
+                <a className={classes.link} href="/">Stats</a>
             </div>
-            <div className="bottombar__col">
-                <a className="bottombar__link" href="/">More</a>
+            <div className={classes.col}>
+                <a className={classes.link} href="/">More</a>
             </div>
         </div>
     )

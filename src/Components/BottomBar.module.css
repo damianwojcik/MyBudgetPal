@@ -1,0 +1,19 @@
+.wrapper {
+    background: #ddd;
+    display: flex;
+}
+.col {
+    width: 25%;
+}
+.link {
+    text-decoration: none;
+    padding: 15px 0;
+    display: block;
+    color: #78787a;
+}
+.link:hover {
+    background-color: #ccc;
+}
+.link.active {
+    color: #152975;
+}

@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import './App.scss';
+
 import Header from './Components/Header';
 import Status from './Components/Status';
 import BottomBar from './Components/BottomBar';
 import Diary from './Components/Diary';
 
+import classes from './App.module.css';
+
 class App extends Component {
   state = {
     month: 'January',
-    status: {
-      incomes: 0,
-      expenses: 0,
-    },
     data: [
       {
           id: 1,
@@ -50,42 +48,22 @@ class App extends Component {
       }
     ],
   }
-  componentDidMount() {
-    this.calculateStatus();
-  }
-  calculateStatus() {
-    const data = [...this.state.data];
-    let status = {
-      incomes: 0,
-      expenses: 0
-    };
-
-    let costs = data.filter((item) => item.price < 0);
-    let profits = data.filter((item) => item.price > 0);
-    costs.forEach(item => {
-      status.expenses += item.price;
-    })
-    profits.forEach(item => {
-      status.incomes += item.price;
-    })
-    status.incomes = status.incomes.toFixed(2);
-    status.expenses = status.expenses.toFixed(2);
-    this.setState({ status: status })
-  }
   deleteEntryHandler(index) {
     const entryIndex = this.state.data.findIndex(entry => {
       return entry.id === index;
     });
     const data = [...this.state.data];
     data.splice(entryIndex, 1);
-    this.setState({ data: data }, () => this.calculateStatus());
+    this.setState({ data: data });
   }
   render() {
     return (
-      <div className="App">
+      <div className={classes.App}>
         <Header month={this.state.month} />
-        <Status status={this.state.status} />
-        <Diary data={this.state.data} click={this.deleteEntryHandler.bind(this)} />
+        <Status data={this.state.data} />
+        <Diary
+          data={this.state.data}
+          click={this.deleteEntryHandler.bind(this)} />
         <BottomBar />
       </div>
     );

@@ -1,13 +1,13 @@
 import React from 'react';
-import './Diary.scss';
 import Entry from './Entry';
+import classes from './Diary.module.css';
 
-const Diary = (props) => {
+const Diary = ( props ) => {
     return (
-        <div className="diary">
-            <div className="diary__wrap">
-                <h5 className="diary__heading">Today</h5>
-                    <ul className="diary__list">
+        <div className={classes.wrapper}>
+            <div className={classes.inner}>
+                <h5 className={classes.heading}>Today</h5>
+                    <ul>
                         {props.data.map((entry) => {
                             return (
                                 <Entry

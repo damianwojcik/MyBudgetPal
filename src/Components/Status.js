@@ -1,8 +1,25 @@
 import React from 'react';
-import './Status.scss';
+import classes from './Status.module.css';
 
 const Status = (props) => {
-    let balance = parseFloat(props.status.incomes) + parseFloat(props.status.expenses);
+    const data = [...props.data];
+    let status = {
+      incomes: 0,
+      expenses: 0
+    };
+
+    let costs = data.filter((item) => item.price < 0);
+    let profits = data.filter((item) => item.price > 0);
+    costs.forEach(item => {
+      status.expenses += item.price;
+    })
+    profits.forEach(item => {
+      status.incomes += item.price;
+    })
+    status.incomes = status.incomes.toFixed(2);
+    status.expenses = status.expenses.toFixed(2);
+
+    let balance = parseFloat(status.incomes) + parseFloat(status.expenses);
     let style = {};
     if (balance > 0) {
         style.color = '#4CD964'
@@ -10,16 +27,16 @@ const Status = (props) => {
         style.color = '#FF2D55'
     }
     return (
-        <div className="status">
-            <div className="status__col">
-                <h3>{props.status.incomes}</h3>
+        <div className={classes.wrapper}>
+            <div className={classes.col}>
+                <h3>{status.incomes}</h3>
                 <h4>Incomes</h4>
             </div>
-            <div className="status__col">
-                <h3>{props.status.expenses}</h3>
+            <div className={classes.col}>
+                <h3>{status.expenses}</h3>
                 <h4>Expenses</h4>
             </div>
-            <div className="status__col status__col" style={style}>
+            <div className={classes.col} style={style}>
                 <h3>{balance}</h3>
                 <h4>Balance</h4>
             </div>

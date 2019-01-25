@@ -1,0 +1,13 @@
+.wrapper {
+    text-align: left;
+    background-color: #EFEFF4;
+    min-height: 450px;
+}
+.heading {
+    line-height: 1.38;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #78787a;
+    padding: 9px 15px 8px;
+}
