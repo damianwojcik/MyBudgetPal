@@ -3,18 +3,18 @@ import classes from './BottomBar.module.css';
 
 const BottomBar = ( props ) => {
     return (
-        <div className={classes.wrapper}>
-            <div className={classes.col}>
-                <a className={classes.link} href="/">Home</a>
+        <div className={classes.BottomBar}>
+            <div>
+                <a href="/">Home</a>
             </div>
-            <div className={classes.col} >
-                <a className={classes.link} href="/">Diary</a>
+            <div>
+                <a href="/diary">Diary</a>
             </div>
-            <div className={classes.col}>
-                <a className={classes.link} href="/">Stats</a>
+            <div>
+                <a href="/stats">Stats</a>
             </div>
-            <div className={classes.col}>
-                <a className={classes.link} href="/">More</a>
+            <div>
+                <a href="/more">More</a>
             </div>
         </div>
     )

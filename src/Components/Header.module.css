@@ -1,18 +1,21 @@
-.wrapper {
+.Header {
     background: #152975;
     position: relative;
     padding: 12px 15px;
     font-size: 17px;
     font-weight: 500;
 }
-.btn {
+.Header button {
     color: #fff;
     padding: 0 3px;
 }
-.add {
+.Header a {
+    color: #fff;
+}
+.Header .add {
     position: absolute;
     right: 15px;
-    top: 0;
+    top: 10px;
     bottom: 0;
     margin: auto;
 }

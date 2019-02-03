@@ -1,19 +1,19 @@
-.wrapper {
+.BottomBar {
     background: #ddd;
     display: flex;
 }
-.col {
+.BottomBar div {
     width: 25%;
 }
-.link {
+.BottomBar a {
     text-decoration: none;
     padding: 15px 0;
     display: block;
     color: #78787a;
 }
-.link:hover {
+.BottomBar a:hover {
     background-color: #ccc;
 }
-.link.active {
+.BottomBar a.active {
     color: #152975;
 }

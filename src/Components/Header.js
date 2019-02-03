@@ -3,13 +3,13 @@ import classes from './Header.module.css';
 
 const Header = ( props ) => {
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.Header}>
             <div>
-                <button className={classes.btn}>&lt;</button>
-                <button className={classes.btn}>{props.month}</button>
-                <button className={classes.btn}>&gt;</button>
+                <button>&lt;</button>
+                <button>{props.month}</button>
+                <button>&gt;</button>
             </div>
-            <button className={[classes.btn, classes.add].join(' ')}>+</button>
+            <a href="/add" className={classes.add}>+</a>
         </div>
     )
 }

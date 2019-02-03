@@ -1,9 +1,9 @@
-.wrapper {
+.Diary {
     text-align: left;
     background-color: #EFEFF4;
     min-height: 450px;
 }
-.heading {
+.Diary h5 {
     line-height: 1.38;
     font-size: 13px;
     font-weight: 400;

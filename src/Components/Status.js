@@ -27,16 +27,16 @@ const Status = (props) => {
         style.color = '#FF2D55'
     }
     return (
-        <div className={classes.wrapper}>
-            <div className={classes.col}>
+        <div className={classes.Status}>
+            <div>
                 <h3>{status.incomes}</h3>
                 <h4>Incomes</h4>
             </div>
-            <div className={classes.col}>
+            <div>
                 <h3>{status.expenses}</h3>
                 <h4>Expenses</h4>
             </div>
-            <div className={classes.col} style={style}>
+            <div style={style}>
                 <h3>{balance}</h3>
                 <h4>Balance</h4>
             </div>

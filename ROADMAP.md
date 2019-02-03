@@ -1,5 +1,5 @@
 # Todo
-- add 'add' route
+- add 'add' route (npm i react-router-dom)
 - render nav items from const items = [ ... ]
 - prop-types
 - naming conventions: stateless components - camelcase, stateful components - kebab case
