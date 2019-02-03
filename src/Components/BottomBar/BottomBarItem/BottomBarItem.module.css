@@ -1,0 +1,15 @@
+.BottomBarItem {
+    flex: 1;
+}
+.BottomBarItem a {
+    text-decoration: none;
+    padding: 15px 0;
+    display: block;
+    color: #78787a;
+}
+.BottomBarItem a:hover {
+    background-color: #ccc;
+}
+.BottomBarItem a.active {
+    color: #152975;
+}

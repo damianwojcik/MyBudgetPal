@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Components/Header';
 import Status from '../Components/Status';
 import Diary from '../Components/Diary';
-import BottomBar from '../Components/BottomBar';
+import BottomBar from '../Components/BottomBar/BottomBar';
 
 class Dashboard extends Component {
     state = {
