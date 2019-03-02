@@ -1,12 +1,16 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import classes from './BottomBarItem.module.css';
 
 const BottomBarItem = (props) => (
     <div className={classes.BottomBarItem}>
-        <a
-            href={props.link}
-            className={props.active ? classes.active : null}
-        >{props.children}</a>
+        <NavLink
+            exact
+            to={props.link}
+            activeStyle={{
+                color: '#152975'
+            }}
+        >{props.children}</NavLink>
     </div>
 );
 

@@ -5,7 +5,7 @@ import BottomBarItem from './BottomBarItem/BottomBarItem';
 const BottomBar = ( props ) => {
     return (
         <div className={classes.BottomBar}>
-            <BottomBarItem link="/" active>Home</BottomBarItem>
+            <BottomBarItem link="/">Home</BottomBarItem>
             <BottomBarItem link="/diary">Diary</BottomBarItem>
             <BottomBarItem link="/stats">Stats</BottomBarItem>
             <BottomBarItem link="/more">More</BottomBarItem>

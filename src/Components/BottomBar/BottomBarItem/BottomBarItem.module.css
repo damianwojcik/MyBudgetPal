@@ -6,10 +6,8 @@
     padding: 15px 0;
     display: block;
     color: #78787a;
+    background: #fff;
 }
 .BottomBarItem a:hover {
-    background-color: #ccc;
-}
-.BottomBarItem a.active {
-    color: #152975;
+    background-color: #EFEFF4;
 }
