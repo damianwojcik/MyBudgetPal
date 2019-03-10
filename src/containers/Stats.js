@@ -1,11 +1,11 @@
 import React from 'react';
-import BottomBar from '../Components/BottomBar/BottomBar';
+import NavigationItems from '../components/Navigation/NavigationItems/NavigationItems';
 
 const Stats = () => {
     return (
         <div>
             <h1>Stats</h1>
-            <BottomBar />
+            <NavigationItems />
         </div>
     );
 };

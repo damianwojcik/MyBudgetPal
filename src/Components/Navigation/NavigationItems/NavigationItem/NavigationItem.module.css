@@ -1,13 +1,13 @@
-.BottomBarItem {
+.NavigationItem {
     flex: 1;
 }
-.BottomBarItem a {
+.NavigationItem a {
     text-decoration: none;
     padding: 15px 0;
     display: block;
     color: #78787a;
     background: #fff;
 }
-.BottomBarItem a:hover {
-    background-color: #EFEFF4;
+.NavigationItem a:hover {
+    background-color: #efeff4;
 }
