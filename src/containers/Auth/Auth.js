@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Logo from '../../components/UI/Logo/Logo';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -129,17 +130,41 @@ class Auth extends Component {
             errorMessage = <p>{this.props.error.message}</p>;
         }
 
+        let caption = (
+            <p>
+                Don't have an account? <button onClick={this.switchAuthModeHandler}>Sign Up</button>
+            </p>
+        );
+
+        let remindPassword = (
+            <a className={classes.remindPassword} href="/">
+                Forgot password?
+            </a>
+        );
+
+        if (this.state.isSignup) {
+            caption = (
+                <p>
+                    Have an account? <button onClick={this.switchAuthModeHandler}>Log in</button>
+                </p>
+            );
+
+            remindPassword = null;
+        }
+
         return (
-            <div className={classes.Auth}>
-                {errorMessage}
-                <form onSubmit={this.submitHandler}>
-                    {form}
-                    <Button btnType="Success">SUBMIT</Button>
-                </form>
-                <Button clicked={this.switchAuthModeHandler} btnType="Danger">
-                    SWITCH TO {this.state.isSignup ? 'SIGN IN' : 'SIGN UP'}
-                </Button>
-            </div>
+            <>
+                <div className={classes.Auth}>
+                    <Logo />
+                    {errorMessage}
+                    <form onSubmit={this.submitHandler}>
+                        {form}
+                        <Button btnType="fullWidth">{this.state.isSignup ? 'Log In' : 'Sign Up'}</Button>
+                    </form>
+                    {remindPassword}
+                </div>
+                <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
+            </>
         );
     }
 }
