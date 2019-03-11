@@ -11,8 +11,7 @@ const NavigationItems = props => {
             </NavigationItem>
             <NavigationItem link="/diary">Diary</NavigationItem>
             <NavigationItem link="/stats">Stats</NavigationItem>
-            {/* <NavigationItem link="/more">More</NavigationItem> */}
-            <NavigationItem link="/auth">auth</NavigationItem>
+            <NavigationItem link="/more">More</NavigationItem>
         </div>
     );
 };

@@ -9,14 +9,6 @@ class Dashboard extends Component {
     state = {
         month: 'January'
     };
-    // deleteEntryHandler(index) {
-    //     const entryIndex = this.state.data.findIndex(entry => {
-    //         return entry.id === index;
-    //     });
-    //     const data = [...this.state.data];
-    //     data.splice(entryIndex, 1);
-    //     this.setState({ data: data });
-    // }
     render() {
         return (
             <>

@@ -24,7 +24,7 @@ class Diary extends Component {
                                     icon={entry.type}
                                     title={entry.title}
                                     price={entry.price}
-                                    // click={() => this.props.click(entry.id)}
+                                    clicked={() => this.props.onRemoveEntry(entry.id)}
                                 />
                             );
                         })}
@@ -43,7 +43,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchEntries: () => dispatch(actions.fetchEntries())
+        onFetchEntries: () => dispatch(actions.fetchEntries()),
+        onRemoveEntry: id => dispatch(actions.removeEntry(id))
     };
 };
 

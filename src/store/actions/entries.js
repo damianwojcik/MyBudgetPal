@@ -21,6 +21,22 @@ export const fetchEntriesSuccess = entries => {
     };
 };
 
+export const removeEntry = id => {
+    axios
+        .delete(`/entries/${id}.json`)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+    return {
+        type: actionTypes.ENTRY_REMOVE,
+        entryId: id
+    };
+};
+
 export const fetchEntries = () => {
     return dispatch => {
         dispatch(fetchEntriesStart());
@@ -29,10 +45,12 @@ export const fetchEntries = () => {
             .then(res => {
                 const fetchedEntries = [];
                 for (let key in res.data) {
-                    fetchedEntries.push({
-                        ...res.data[key],
-                        id: key
-                    });
+                    if (res.data[key]) {
+                        fetchedEntries.push({
+                            ...res.data[key],
+                            id: key
+                        });
+                    }
                 }
                 dispatch(fetchEntriesSuccess(fetchedEntries));
             })

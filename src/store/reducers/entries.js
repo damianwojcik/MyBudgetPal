@@ -21,6 +21,10 @@ const fetchEntriesSuccess = (state, action) => {
     });
 };
 
+const entryRemove = (state, action) => {
+    return updateObject(state, { entries: state.entries.filter(item => action.entryId !== item.id) });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_ENTRIES_START:
@@ -29,6 +33,8 @@ const reducer = (state = initialState, action) => {
             return fetchEntriesSuccess(state, action);
         case actionTypes.FETCH_ENTRIES_FAIL:
             return fetchEntriesFail(state, action);
+        case actionTypes.ENTRY_REMOVE:
+            return entryRemove(state, action);
         default:
             return state;
     }

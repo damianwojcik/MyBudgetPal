@@ -1,6 +1,7 @@
 # Todo
 
 -   auth as homepage. others protected
+-   prop-types
 
 -   routes(pages) as containers
 -   add /entry route with id param
@@ -11,7 +12,5 @@
     componentDidUpdate () {
     console.log('[ComponentName]componentDidUpdate')
     }
--   create firebase
 -   use axios instances for data
 -   spinner loader while sending a request
--   prop-types
