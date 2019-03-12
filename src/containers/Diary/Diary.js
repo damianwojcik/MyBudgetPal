@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-entries';
 import Entry from '../../components/Entry';
+import withErrorHandler from '../../components/HOC/withErrorHandler/withErrorHandler';
 import classes from './Diary.module.css';
 
 class Diary extends Component {
     componentDidMount() {
         this.props.onFetchEntries();
     }
+
     render() {
         return (
             <div className={classes.Diary}>
@@ -51,4 +53,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Diary, axios);
+)(withErrorHandler(Diary, axios));
