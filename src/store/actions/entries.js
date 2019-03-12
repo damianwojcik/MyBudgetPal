@@ -37,11 +37,26 @@ export const removeEntry = id => {
     };
 };
 
-export const fetchEntries = () => {
+export const addEntry = (userId, token, entryData) => {
+    axios
+        .post(`/entries/${userId}.json?auth=${token}`, entryData)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+    return {
+        type: actionTypes.ENTRY_ADD
+    };
+};
+
+export const fetchEntries = (userId, token) => {
     return dispatch => {
         dispatch(fetchEntriesStart());
         axios
-            .get('/entries.json')
+            .get(`/entries/${userId}.json?auth=${token}`)
             .then(res => {
                 const fetchedEntries = [];
                 for (let key in res.data) {

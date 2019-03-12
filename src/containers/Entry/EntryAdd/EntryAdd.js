@@ -1,47 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import Logo from '../../components/UI/Logo/Logo';
-import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import classes from './Auth.module.css';
-import * as actions from '../../store/actions/index';
+import * as actions from '../../../store/actions/index';
+import classes from './EntryAdd.module.css';
+import Input from '../../../components/UI/Input/Input';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import Button from '../../../components/UI/Button/Button';
 
-class Auth extends Component {
+class EntryAdd extends Component {
     state = {
         controls: {
-            email: {
+            title: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'email',
-                    placeholder: 'Your email address'
+                    type: 'text',
+                    placeholder: 'Title'
                 },
                 value: '',
                 validation: {
-                    required: true,
-                    isEmail: true
+                    required: true
                 },
                 valid: false,
                 touched: false
             },
-            password: {
+            type: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'password',
-                    placeholder: 'Your password'
+                    type: 'teXt',
+                    placeholder: 'Type'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            amount: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'teXt',
+                    placeholder: 'Amount'
                 },
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 6
+                    isNumeric: true
                 },
                 valid: false,
                 touched: false
             }
-        },
-        isSignup: false
+        }
     };
 
     checkValidity(value, rules) {
@@ -52,19 +61,6 @@ class Auth extends Component {
 
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid;
         }
 
         if (rules.isNumeric) {
@@ -90,12 +86,10 @@ class Auth extends Component {
 
     submitHandler = event => {
         event.preventDefault();
-        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
-    };
-
-    switchAuthModeHandler = () => {
-        this.setState(prevState => {
-            return { isSignup: !prevState.isSignup };
+        this.props.onAddEntry(this.props.userId, this.props.token, {
+            title: this.state.controls.title.value,
+            type: this.state.controls.type.value,
+            amount: this.state.controls.amount.value
         });
     };
 
@@ -130,42 +124,15 @@ class Auth extends Component {
         if (this.props.error) {
             errorMessage = <p>{this.props.error.message}</p>;
         }
-
-        let caption = (
-            <p>
-                Don't have an account? <button onClick={this.switchAuthModeHandler}>Sign Up</button>
-            </p>
-        );
-
-        let remindPassword = (
-            <a className={classes.remindPassword} href="/">
-                Forgot password?
-            </a>
-        );
-
-        if (this.state.isSignup) {
-            caption = (
-                <p>
-                    Have an account? <button onClick={this.switchAuthModeHandler}>Log in</button>
-                </p>
-            );
-
-            remindPassword = null;
-        }
-
         return (
             <>
-                <div className={classes.Auth}>
-                    <Logo />
+                <div className={classes.EntryAdd}>
                     {errorMessage}
                     <form onSubmit={this.submitHandler}>
                         {form}
-                        <Button btnType="fullWidth">{this.state.isSignup ? 'Sign Up' : 'Log In'}</Button>
+                        <Button btnType="fullWidth">Add</Button>
                     </form>
-                    {remindPassword}
                 </div>
-                <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
-                <Link to="/dashboard">Dashboard</Link>
             </>
         );
     }
@@ -173,18 +140,18 @@ class Auth extends Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.auth.loading,
-        error: state.auth.error
+        token: state.auth.token,
+        userId: state.auth.userId
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup))
+        onAddEntry: (userId, token, entryData) => dispatch(actions.addEntry(userId, token, entryData))
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Auth);
+)(EntryAdd);

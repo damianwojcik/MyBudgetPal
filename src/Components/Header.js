@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import classes from './Header.module.css';
 
 const Header = props => {
@@ -14,9 +16,9 @@ const Header = props => {
                 <button>{setCurrentMonth()}</button>
                 <button>&gt;</button>
             </div>
-            <a href="/add" className={classes.add}>
+            <Link to="/add" className={classes.add}>
                 +
-            </a>
+            </Link>
         </div>
     );
 };

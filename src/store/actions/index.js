@@ -1,2 +1,2 @@
 export { auth } from './auth';
-export { fetchEntries, removeEntry } from './entries';
+export { fetchEntries, removeEntry, addEntry } from './entries';

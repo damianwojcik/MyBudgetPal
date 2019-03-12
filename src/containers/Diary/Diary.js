@@ -9,7 +9,7 @@ import classes from './Diary.module.css';
 
 class Diary extends Component {
     componentDidMount() {
-        this.props.onFetchEntries();
+        this.props.onFetchEntries(this.props.userId, this.props.token);
     }
 
     render() {
@@ -39,13 +39,15 @@ class Diary extends Component {
 
 const mapStateToProps = state => {
     return {
-        entries: state.entries.entries
+        entries: state.entries.entries,
+        token: state.auth.token,
+        userId: state.auth.userId
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchEntries: () => dispatch(actions.fetchEntries()),
+        onFetchEntries: (userId, token) => dispatch(actions.fetchEntries(userId, token)),
         onRemoveEntry: id => dispatch(actions.removeEntry(id))
     };
 };
