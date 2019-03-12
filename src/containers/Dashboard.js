@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header';
@@ -8,9 +9,16 @@ import NavigationItems from '../components/Navigation/NavigationItems/Navigation
 
 class Dashboard extends Component {
     render() {
+        let authRedirect = null;
+
+        if (!this.props.isAuthenticated) {
+            authRedirect = <Redirect to="/" />;
+        }
+
         return (
             <>
-                <Header isAuth={this.props.isAuthenticated} />
+                {authRedirect}
+                <Header />
                 {/* <Status data={this.props.entries} /> */}
                 <Diary />
                 <NavigationItems />

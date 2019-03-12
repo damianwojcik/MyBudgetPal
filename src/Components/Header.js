@@ -9,11 +9,9 @@ const Header = props => {
 
     return (
         <div className={classes.Header}>
-            {props.isAuth ? (
-                <Link to="/logout" className={classes.logout}>
-                    Logout
-                </Link>
-            ) : null}
+            <Link to="/logout" className={classes.logout}>
+                Logout
+            </Link>
             <div>
                 <button>&lt;</button>
                 <button>{currentMonth}</button>
