@@ -4,16 +4,19 @@ import { Link } from 'react-router-dom';
 import classes from './Header.module.css';
 
 const Header = props => {
-    const setCurrentMonth = () => {
-        const today = new Date();
-        return today.toLocaleString('en-us', { month: 'long' });
-    };
+    const today = new Date();
+    const currentMonth = today.toLocaleString('en-us', { month: 'long' });
 
     return (
         <div className={classes.Header}>
+            {props.isAuth ? (
+                <Link to="/logout" className={classes.logout}>
+                    Logout
+                </Link>
+            ) : null}
             <div>
                 <button>&lt;</button>
-                <button>{setCurrentMonth()}</button>
+                <button>{currentMonth}</button>
                 <button>&gt;</button>
             </div>
             <Link to="/add" className={classes.add}>
