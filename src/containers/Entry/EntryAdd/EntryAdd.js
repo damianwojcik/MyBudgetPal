@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as actions from '../../../store/actions/index';
 import classes from './EntryAdd.module.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
+import withErrorHandler from '../../../components/HOC/withErrorHandler/withErrorHandler';
+import axios from '../../../axios-entries';
 
 class EntryAdd extends Component {
     state = {
@@ -50,7 +53,8 @@ class EntryAdd extends Component {
                 valid: false,
                 touched: false
             }
-        }
+        },
+        formIsValid: false
     };
 
     checkValidity(value, rules) {
@@ -71,26 +75,34 @@ class EntryAdd extends Component {
         return isValid;
     }
 
-    inputChangedHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
-                value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
-                touched: true
-            }
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedcontrols = {
+            ...this.state.controls
         };
-        this.setState({ controls: updatedControls });
+        const updatedFormElement = {
+            ...updatedcontrols[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedcontrols[inputIdentifier] = updatedFormElement;
+
+        let formIsValid = true;
+        for (let inputIdentifier in updatedcontrols) {
+            formIsValid = updatedcontrols[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({ controls: updatedcontrols, formIsValid: formIsValid });
     };
 
     submitHandler = event => {
         event.preventDefault();
-        this.props.onAddEntry(this.props.userId, this.props.token, {
-            title: this.state.controls.title.value,
-            type: this.state.controls.type.value,
-            amount: this.state.controls.amount.value
-        });
+
+        const formData = {};
+        for (let formElementIdentifier in this.state.controls) {
+            formData[formElementIdentifier] = this.state.controls[formElementIdentifier].value;
+        }
+
+        this.props.onAddEntry(this.props.userId, this.props.token, formData);
     };
 
     render() {
@@ -102,37 +114,35 @@ class EntryAdd extends Component {
             });
         }
 
-        let form = formElementsArray.map(formElement => (
-            <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                invalid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-                changed={event => this.inputChangedHandler(event, formElement.id)}
-            />
-        ));
+        let form = (
+            <form onSubmit={this.submitHandler}>
+                {formElementsArray.map(formElement => (
+                    <Input
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}
+                        touched={formElement.config.touched}
+                        changed={event => this.inputChangedHandler(event, formElement.id)}
+                    />
+                ))}
+                <Button disabled={!this.state.formIsValid}>Add</Button>
+            </form>
+        );
 
         if (this.props.loading) {
             form = <Spinner />;
         }
 
-        let errorMessage = null;
-
-        if (this.props.error) {
-            errorMessage = <p>{this.props.error.message}</p>;
-        }
         return (
             <>
                 <div className={classes.EntryAdd}>
-                    {errorMessage}
-                    <form onSubmit={this.submitHandler}>
-                        {form}
-                        <Button btnType="fullWidth">Add</Button>
-                    </form>
+                    <h4>Enter your data</h4>
+                    {form}
                 </div>
+                <Link to="/dashboard">Dashboard</Link>
             </>
         );
     }
@@ -141,17 +151,18 @@ class EntryAdd extends Component {
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        loading: state.entries.loading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddEntry: (userId, token, entryData) => dispatch(actions.addEntry(userId, token, entryData))
+        onAddEntry: (userId, token, formData) => dispatch(actions.addEntry(userId, token, formData))
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(EntryAdd);
+)(withErrorHandler(EntryAdd, axios));

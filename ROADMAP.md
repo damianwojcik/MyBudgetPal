@@ -1,5 +1,7 @@
 # Todo
 
+-   onRemoveEntry removes entry from UI too!
+
 -   auth as homepage. others protected
 -   prop-types
 
@@ -12,5 +14,3 @@
     componentDidUpdate () {
     console.log('[ComponentName]componentDidUpdate')
     }
--   use axios instances for data
--   spinner loader while sending a request

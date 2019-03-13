@@ -5,7 +5,6 @@ import * as actionTypes from './actionTypes';
 const FIREBASE_APIKEY = process.env.REACT_APP_FIREBASE_APIKEY;
 
 export const authStart = () => {
-    console.log(FIREBASE_APIKEY);
     return {
         type: actionTypes.AUTH_START
     };
@@ -56,7 +55,6 @@ export const auth = (email, password, isSignup) => {
         axios
             .post(url, authData)
             .then(response => {
-                console.log(response);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })

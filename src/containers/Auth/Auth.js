@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import Logo from '../../components/UI/Logo/Logo';
 import Input from '../../components/UI/Input/Input';
@@ -172,6 +172,7 @@ class Auth extends Component {
                     {remindPassword}
                 </div>
                 <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
+                <Link to="/dashboard">Dashboard</Link>
             </>
         );
     }

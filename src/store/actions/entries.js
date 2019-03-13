@@ -21,34 +21,56 @@ export const fetchEntriesSuccess = entries => {
     };
 };
 
-export const removeEntry = id => {
-    axios
-        .delete(`/entries/${id}.json`)
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-
+export const entryActionStart = () => {
     return {
-        type: actionTypes.ENTRY_REMOVE,
-        entryId: id
+        type: actionTypes.ENTRY_ACTION_START
     };
 };
 
-export const addEntry = (userId, token, entryData) => {
-    axios
-        .post(`/entries/${userId}.json?auth=${token}`, entryData)
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-
+export const entryActionFail = error => {
     return {
-        type: actionTypes.ENTRY_ADD
+        type: actionTypes.ENTRY_ACTION_FAIL,
+        error: error
+    };
+};
+
+export const entryActionSuccess = () => {
+    return {
+        type: actionTypes.ENTRY_ACTION_SUCCESS
+    };
+};
+
+export const entriesClear = () => {
+    return {
+        type: actionTypes.ENTRIES_CLEAR
+    };
+};
+
+export const removeEntry = (userId, token, entryId) => {
+    return dispatch => {
+        dispatch(entryActionStart());
+        axios
+            .delete(`/entries/${userId}/${entryId}.json?auth=${token}`)
+            .then(res => {
+                dispatch(entryActionSuccess());
+            })
+            .catch(err => {
+                dispatch(entryActionFail(err));
+            });
+    };
+};
+
+export const addEntry = (userId, token, formData) => {
+    return dispatch => {
+        dispatch(entryActionStart());
+        axios
+            .post(`/entries/${userId}.json?auth=${token}`, formData)
+            .then(res => {
+                dispatch(entryActionSuccess());
+            })
+            .catch(err => {
+                dispatch(entryActionFail(err));
+            });
     };
 };
 
