@@ -14,3 +14,6 @@
     componentDidUpdate () {
     console.log('[ComponentName]componentDidUpdate')
     }
+- authRedirect as HOC ?
+- connect filling EntryAdd form to redux? so data is saved when switch to dashboard and back?
+- login page autocomplete

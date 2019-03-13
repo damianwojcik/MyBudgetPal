@@ -152,7 +152,8 @@ const mapStateToProps = state => {
     return {
         token: state.auth.token,
         userId: state.auth.userId,
-        loading: state.entries.loading
+        loading: state.entries.loading,
+        isAuthenticated: state.auth.token !== null
     };
 };
 

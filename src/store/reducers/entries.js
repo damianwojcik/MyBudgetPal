@@ -36,10 +36,6 @@ const entryActionSuccess = (state, action) => {
     });
 };
 
-const entryRemove = (state, action) => {
-    return updateObject(state, { entries: state.entries.filter(item => action.entryId !== item.id) });
-};
-
 const entriesClear = (state, action) => {
     return updateObject(state, { entries: [] });
 };
