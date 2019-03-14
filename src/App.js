@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import asyncComponent from './components/HOC/asyncComponent/asyncComponent';
 
-import Dashboard from './containers/Dashboard';
-import Stats from './containers/Stats';
-import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
-import EntryAdd from './containers/Entry/EntryAdd/EntryAdd';
 import * as actions from './store/actions/index';
+
+const asyncDashboard = asyncComponent(() => {
+    return import('./containers/Dashboard');
+});
+
+const asyncEntryAdd = asyncComponent(() => {
+    return import('./containers/Entry/EntryAdd/EntryAdd');
+});
+
+const asyncAuth = asyncComponent(() => {
+    return import('./containers/Auth/Auth');
+});
 
 class App extends Component {
     componentDidMount = () => {
@@ -17,18 +26,18 @@ class App extends Component {
     render() {
         let routes = (
             <Switch>
-                <Route path="/" component={Auth} />
+                <Route path="/" component={asyncAuth} />
             </Switch>
         );
 
         if (this.props.isAuthenticated) {
             routes = (
                 <Switch>
-                    <Route path="/add" component={EntryAdd} />
-                    <Route path="/stats" component={Stats} />
-                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/add" component={asyncEntryAdd} />
+                    {/* <Route path="/stats" component={Stats} /> */}
+                    <Route path="/dashboard" component={asyncDashboard} />
                     <Route path="/logout" component={Logout} />
-                    <Route path="/" component={Dashboard} />
+                    <Route path="/" component={asyncDashboard} />
                 </Switch>
             );
         }
