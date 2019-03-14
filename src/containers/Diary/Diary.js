@@ -8,7 +8,7 @@ import withErrorHandler from '../../components/HOC/withErrorHandler/withErrorHan
 import classes from './Diary.module.css';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-class Diary extends Component {
+export class Diary extends Component {
     componentDidMount() {
         this.props.onFetchEntries(this.props.userId, this.props.token);
     }

@@ -11,7 +11,7 @@ import withErrorHandler from '../../../components/HOC/withErrorHandler/withError
 import axios from '../../../axios-entries';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
-class EntryAdd extends Component {
+export class EntryAdd extends Component {
     state = {
         controls: {
             title: {
