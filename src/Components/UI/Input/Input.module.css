@@ -22,6 +22,6 @@
     outline: none;
     border: 1px solid #ccc;
 }
-.Invalid {
+.Input .Invalid {
     border: 1px solid red;
 }

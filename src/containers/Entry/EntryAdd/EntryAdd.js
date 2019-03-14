@@ -9,6 +9,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import withErrorHandler from '../../../components/HOC/withErrorHandler/withErrorHandler';
 import axios from '../../../axios-entries';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 class EntryAdd extends Component {
     state = {
@@ -21,7 +22,8 @@ class EntryAdd extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    minLength: 3
                 },
                 valid: false,
                 touched: false
@@ -34,7 +36,8 @@ class EntryAdd extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    minLength: 3
                 },
                 valid: false,
                 touched: false
@@ -57,37 +60,19 @@ class EntryAdd extends Component {
         formIsValid: false
     };
 
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-    }
-
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedcontrols = {
-            ...this.state.controls
-        };
-        const updatedFormElement = {
-            ...updatedcontrols[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedcontrols[inputIdentifier] = updatedFormElement;
+        const updatedFormElement = updateObject(this.state.controls[inputIdentifier], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.controls[inputIdentifier].validation),
+            touched: true
+        });
+
+        const updatedcontrols = updateObject(this.state.controls, {
+            [inputIdentifier]: updatedFormElement
+        });
 
         let formIsValid = true;
+
         for (let inputIdentifier in updatedcontrols) {
             formIsValid = updatedcontrols[inputIdentifier].valid && formIsValid;
         }
