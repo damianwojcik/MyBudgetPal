@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import * as actions from '../../../store/actions/index';
 import classes from './EntryAdd.module.css';
@@ -114,6 +114,12 @@ class EntryAdd extends Component {
             });
         }
 
+        let afterActionRedirect = null;
+
+        if (this.props.entryAction) {
+            afterActionRedirect = <Redirect to="/dashboard" />;
+        }
+
         let form = (
             <form onSubmit={this.submitHandler}>
                 {formElementsArray.map(formElement => (
@@ -138,6 +144,7 @@ class EntryAdd extends Component {
 
         return (
             <>
+                {afterActionRedirect}
                 <div className={classes.EntryAdd}>
                     <h4>Enter your data</h4>
                     {form}
@@ -153,6 +160,7 @@ const mapStateToProps = state => {
         token: state.auth.token,
         userId: state.auth.userId,
         loading: state.entries.loading,
+        entryAction: state.entries.entryAction,
         isAuthenticated: state.auth.token !== null
     };
 };

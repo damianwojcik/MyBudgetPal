@@ -34,9 +34,10 @@ export const entryActionFail = error => {
     };
 };
 
-export const entryActionSuccess = () => {
+export const entryActionSuccess = res => {
     return {
-        type: actionTypes.ENTRY_ACTION_SUCCESS
+        type: actionTypes.ENTRY_ACTION_SUCCESS,
+        entryAction: res !== null
     };
 };
 
@@ -52,7 +53,7 @@ export const removeEntry = (userId, token, entryId) => {
         axios
             .delete(`/entries/${userId}/${entryId}.json?auth=${token}`)
             .then(res => {
-                dispatch(entryActionSuccess());
+                dispatch(entryActionSuccess(res));
             })
             .catch(err => {
                 dispatch(entryActionFail(err));
@@ -66,7 +67,7 @@ export const addEntry = (userId, token, formData) => {
         axios
             .post(`/entries/${userId}.json?auth=${token}`, formData)
             .then(res => {
-                dispatch(entryActionSuccess());
+                dispatch(entryActionSuccess(res));
             })
             .catch(err => {
                 dispatch(entryActionFail(err));

@@ -3,7 +3,8 @@ import { updateObject } from '../utility';
 
 const initialState = {
     entries: [],
-    loading: false
+    loading: false,
+    entryAction: false
 };
 
 const fetchEntriesStart = (state, action) => {
@@ -17,7 +18,8 @@ const fetchEntriesFail = (state, action) => {
 const fetchEntriesSuccess = (state, action) => {
     return updateObject(state, {
         entries: action.entries,
-        loading: false
+        loading: false,
+        entryAction: false
     });
 };
 
@@ -31,7 +33,7 @@ const entryActionFail = (state, action) => {
 
 const entryActionSuccess = (state, action) => {
     return updateObject(state, {
-        entry: action.entry,
+        entryAction: action.entryAction !== null,
         loading: false
     });
 };
