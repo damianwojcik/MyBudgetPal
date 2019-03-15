@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-entries';
 import Entry from '../../components/Entry';
-import withErrorHandler from '../../components/HOC/withErrorHandler/withErrorHandler';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import classes from './Diary.module.css';
 import Spinner from '../../components/UI/Spinner/Spinner';
 

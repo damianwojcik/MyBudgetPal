@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import asyncComponent from './components/HOC/asyncComponent/asyncComponent';
+import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';

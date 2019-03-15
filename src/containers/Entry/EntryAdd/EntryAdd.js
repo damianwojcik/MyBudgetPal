@@ -7,7 +7,7 @@ import classes from './EntryAdd.module.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
-import withErrorHandler from '../../../components/HOC/withErrorHandler/withErrorHandler';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../../axios-entries';
 import { updateObject, checkValidity } from '../../../shared/utility';
 

@@ -54,6 +54,7 @@ export const removeEntry = (userId, token, entryId) => {
             .delete(`/entries/${userId}/${entryId}.json?auth=${token}`)
             .then(res => {
                 dispatch(entryActionSuccess(res));
+                dispatch(fetchEntries(userId, token));
             })
             .catch(err => {
                 dispatch(entryActionFail(err));
