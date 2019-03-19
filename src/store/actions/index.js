@@ -1,2 +1,2 @@
-export { auth, logout, authCheckState } from './auth';
+export { auth, logout, authCheckState, logoutSucceed } from './auth';
 export { fetchEntries, removeEntry, addEntry, entriesClear } from './entries';

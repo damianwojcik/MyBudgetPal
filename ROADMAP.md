@@ -17,3 +17,4 @@
 - authRedirect as HOC ?
 - connect filling EntryAdd form to redux? so data is saved when switch to dashboard and back?
 - login page autocomplete
+- animations same as: http://chenglou.github.io/react-motion/demos/demo3-todomvc-list-transition/
