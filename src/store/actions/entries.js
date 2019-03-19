@@ -1,5 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-entries';
 
 export const fetchEntriesStart = () => {
     return {
@@ -48,53 +47,27 @@ export const entriesClear = () => {
 };
 
 export const removeEntry = (userId, token, entryId) => {
-    return dispatch => {
-        dispatch(entryActionStart());
-        axios
-            .delete(`/entries/${userId}/${entryId}.json?auth=${token}`)
-            .then(res => {
-                dispatch(entryActionSuccess(res));
-                dispatch(fetchEntries(userId, token));
-            })
-            .catch(err => {
-                dispatch(entryActionFail(err));
-            });
+    return {
+        type: actionTypes.ENTRY_REMOVE,
+        userId: userId,
+        token: token,
+        entryId: entryId
     };
 };
 
 export const addEntry = (userId, token, formData) => {
-    return dispatch => {
-        dispatch(entryActionStart());
-        axios
-            .post(`/entries/${userId}.json?auth=${token}`, formData)
-            .then(res => {
-                dispatch(entryActionSuccess(res));
-            })
-            .catch(err => {
-                dispatch(entryActionFail(err));
-            });
+    return {
+        type: actionTypes.ENTRY_ADD,
+        userId: userId,
+        token: token,
+        formData: formData
     };
 };
 
 export const fetchEntries = (userId, token) => {
-    return dispatch => {
-        dispatch(fetchEntriesStart());
-        axios
-            .get(`/entries/${userId}.json?auth=${token}`)
-            .then(res => {
-                const fetchedEntries = [];
-                for (let key in res.data) {
-                    if (res.data[key]) {
-                        fetchedEntries.push({
-                            ...res.data[key],
-                            id: key
-                        });
-                    }
-                }
-                dispatch(fetchEntriesSuccess(fetchedEntries));
-            })
-            .catch(err => {
-                dispatch(fetchEntriesFail(err));
-            });
+    return {
+        type: actionTypes.ENTRIES_FETCH,
+        userId: userId,
+        token: token
     };
 };

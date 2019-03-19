@@ -11,10 +11,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import authReducer from './store/reducers/auth';
 import entriesReducer from './store/reducers/entries';
-import { watchAuth } from './store/sagas';
+import { watchAuth, watchEntries } from './store/sagas';
 
 const composeEnhancers =
-    process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;
+    process.env.NODE_ENV === 'development'
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+        : compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -26,6 +28,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchEntries);
 
 const app = (
     <Provider store={store}>
