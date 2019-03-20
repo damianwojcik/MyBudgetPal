@@ -49,7 +49,10 @@ class Auth extends Component {
         const updatedControls = updateObject(this.state.controls, {
             [controlName]: updateObject(this.state.controls[controlName], {
                 value: event.target.value,
-                valid: checkValidity(event.target.value, this.state.controls[controlName].validation),
+                valid: checkValidity(
+                    event.target.value,
+                    this.state.controls[controlName].validation
+                ),
                 touched: true
             })
         });
@@ -58,7 +61,11 @@ class Auth extends Component {
 
     submitHandler = event => {
         event.preventDefault();
-        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
+        this.props.onAuth(
+            this.state.controls.email.value,
+            this.state.controls.password.value,
+            this.state.isSignup
+        );
     };
 
     switchAuthModeHandler = () => {
@@ -128,20 +135,22 @@ class Auth extends Component {
         }
 
         return (
-            <>
+            <React.Fragment>
                 <div className={classes.Auth}>
                     {authRedirect}
                     <Logo />
                     {errorMessage}
                     <form onSubmit={this.submitHandler}>
                         {form}
-                        <Button btnType="fullWidth">{this.state.isSignup ? 'Sign Up' : 'Log In'}</Button>
+                        <Button btnType="fullWidth">
+                            {this.state.isSignup ? 'Sign Up' : 'Log In'}
+                        </Button>
                     </form>
                     {remindPassword}
                 </div>
                 <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
                 <Link to="/dashboard">Dashboard</Link>
-            </>
+            </React.Fragment>
         );
     }
 }

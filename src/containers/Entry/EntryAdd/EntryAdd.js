@@ -63,7 +63,10 @@ export class EntryAdd extends Component {
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedFormElement = updateObject(this.state.controls[inputIdentifier], {
             value: event.target.value,
-            valid: checkValidity(event.target.value, this.state.controls[inputIdentifier].validation),
+            valid: checkValidity(
+                event.target.value,
+                this.state.controls[inputIdentifier].validation
+            ),
             touched: true
         });
 
@@ -128,14 +131,14 @@ export class EntryAdd extends Component {
         }
 
         return (
-            <>
+            <React.Fragment>
                 {afterActionRedirect}
                 <div className={classes.EntryAdd}>
                     <h4>Enter your data</h4>
                     {form}
                 </div>
                 <Link to="/dashboard">Dashboard</Link>
-            </>
+            </React.Fragment>
         );
     }
 }

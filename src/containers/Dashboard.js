@@ -7,12 +7,12 @@ import NavigationItems from '../components/Navigation/NavigationItems/Navigation
 
 const Dashboard = props => {
     return (
-        <>
+        <React.Fragment>
             <Header />
             {/* <Status data={this.props.entries} /> */}
             <Diary />
             <NavigationItems />
-        </>
+        </React.Fragment>
     );
 };
 
