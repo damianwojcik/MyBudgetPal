@@ -25,24 +25,28 @@ const app = props => {
 
     let routes = (
         <Switch>
-            <Route path="/" render={() => <Auth />} />
+            <Route path="/" render={() => <Auth {...props} />} />
         </Switch>
     );
 
     if (props.isAuthenticated) {
         routes = (
             <Switch>
-                <Route path="/add" render={() => <EntryAdd />} />
+                <Route path="/add" render={() => <EntryAdd {...props} />} />
                 {/* <Route path="/stats" component={Stats} /> */}
-                <Route path="/dashboard" render={() => <Dashboard />} />
+                <Route path="/dashboard" render={() => <Dashboard {...props} />} />
                 <Route path="/logout" component={Logout} />
-                <Route path="/" render={() => <Dashboard />} />
+                <Route path="/" render={() => <Dashboard {...props} />} />
             </Switch>
         );
     }
 
-    return <div><Suspense fallback={<Spinner />}>{routes}</Suspense></div>;
-}
+    return (
+        <div>
+            <Suspense fallback={<Spinner />}>{routes}</Suspense>
+        </div>
+    );
+};
 
 const mapStateToProps = state => {
     return {

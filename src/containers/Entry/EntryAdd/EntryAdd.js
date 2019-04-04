@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -11,66 +11,61 @@ import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../../axios-entries';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
-export class EntryAdd extends Component {
-    state = {
-        controls: {
-            title: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Title'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 3
-                },
-                valid: false,
-                touched: false
+const entryAdd = props => {
+    const [controls, setControls] = useState({
+        title: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'text',
+                placeholder: 'Title'
             },
-            type: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'teXt',
-                    placeholder: 'Type'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 3
-                },
-                valid: false,
-                touched: false
+            value: '',
+            validation: {
+                required: true,
+                minLength: 3
             },
-            amount: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'teXt',
-                    placeholder: 'Amount'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true
-                },
-                valid: false,
-                touched: false
-            }
+            valid: false,
+            touched: false
         },
-        formIsValid: false
-    };
+        type: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'teXt',
+                placeholder: 'Type'
+            },
+            value: '',
+            validation: {
+                required: true,
+                minLength: 3
+            },
+            valid: false,
+            touched: false
+        },
+        amount: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'teXt',
+                placeholder: 'Amount'
+            },
+            value: '',
+            validation: {
+                required: true,
+                isNumeric: true
+            },
+            valid: false,
+            touched: false
+        }
+    });
+    const [formIsValid, setFormIsValid] = useState(false);
 
-    inputChangedHandler = (event, inputIdentifier) => {
-        const updatedFormElement = updateObject(this.state.controls[inputIdentifier], {
+    const inputChangedHandler = (event, inputIdentifier) => {
+        const updatedFormElement = updateObject(controls[inputIdentifier], {
             value: event.target.value,
-            valid: checkValidity(
-                event.target.value,
-                this.state.controls[inputIdentifier].validation
-            ),
+            valid: checkValidity(event.target.value, controls[inputIdentifier].validation),
             touched: true
         });
 
-        const updatedcontrols = updateObject(this.state.controls, {
+        const updatedcontrols = updateObject(controls, {
             [inputIdentifier]: updatedFormElement
         });
 
@@ -79,69 +74,68 @@ export class EntryAdd extends Component {
         for (let inputIdentifier in updatedcontrols) {
             formIsValid = updatedcontrols[inputIdentifier].valid && formIsValid;
         }
-        this.setState({ controls: updatedcontrols, formIsValid: formIsValid });
+        setControls(updatedcontrols);
+        setFormIsValid(formIsValid);
     };
 
-    submitHandler = event => {
+    const submitHandler = event => {
         event.preventDefault();
 
         const formData = {};
-        for (let formElementIdentifier in this.state.controls) {
-            formData[formElementIdentifier] = this.state.controls[formElementIdentifier].value;
+        for (let formElementIdentifier in controls) {
+            formData[formElementIdentifier] = controls[formElementIdentifier].value;
         }
 
-        this.props.onAddEntry(this.props.userId, this.props.token, formData);
+        props.onAddEntry(props.userId, props.token, formData);
     };
 
-    render() {
-        const formElementsArray = [];
-        for (let key in this.state.controls) {
-            formElementsArray.push({
-                id: key,
-                config: this.state.controls[key]
-            });
-        }
-
-        let afterActionRedirect = null;
-
-        if (this.props.entryAction) {
-            afterActionRedirect = <Redirect to="/dashboard" />;
-        }
-
-        let form = (
-            <form onSubmit={this.submitHandler}>
-                {formElementsArray.map(formElement => (
-                    <Input
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}
-                        touched={formElement.config.touched}
-                        changed={event => this.inputChangedHandler(event, formElement.id)}
-                    />
-                ))}
-                <Button disabled={!this.state.formIsValid}>Add</Button>
-            </form>
-        );
-
-        if (this.props.loading) {
-            form = <Spinner />;
-        }
-
-        return (
-            <React.Fragment>
-                {afterActionRedirect}
-                <div className={classes.EntryAdd}>
-                    <h4>Enter your data</h4>
-                    {form}
-                </div>
-                <Link to="/dashboard">Dashboard</Link>
-            </React.Fragment>
-        );
+    const formElementsArray = [];
+    for (let key in controls) {
+        formElementsArray.push({
+            id: key,
+            config: controls[key]
+        });
     }
-}
+
+    let afterActionRedirect = null;
+
+    if (props.entryAction) {
+        afterActionRedirect = <Redirect to="/dashboard" />;
+    }
+
+    let form = (
+        <form onSubmit={submitHandler}>
+            {formElementsArray.map(formElement => (
+                <Input
+                    key={formElement.id}
+                    elementType={formElement.config.elementType}
+                    elementConfig={formElement.config.elementConfig}
+                    value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation}
+                    touched={formElement.config.touched}
+                    changed={event => inputChangedHandler(event, formElement.id)}
+                />
+            ))}
+            <Button disabled={!formIsValid}>Add</Button>
+        </form>
+    );
+
+    if (props.loading) {
+        form = <Spinner />;
+    }
+
+    return (
+        <React.Fragment>
+            {afterActionRedirect}
+            <div className={classes.EntryAdd}>
+                <h4>Enter your data</h4>
+                {form}
+            </div>
+            <Link to="/dashboard">Dashboard</Link>
+        </React.Fragment>
+    );
+};
 
 const mapStateToProps = state => {
     return {
@@ -162,4 +156,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withErrorHandler(EntryAdd, axios));
+)(withErrorHandler(entryAdd, axios));

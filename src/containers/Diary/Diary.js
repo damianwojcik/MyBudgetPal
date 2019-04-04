@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
@@ -8,39 +8,37 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import classes from './Diary.module.css';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-export class Diary extends Component {
-    componentDidMount() {
-        this.props.onFetchEntries(this.props.userId, this.props.token);
-    }
+const diary = props => {
+    useEffect(() => {
+        props.onFetchEntries(props.userId, props.token);
+    }, [])
 
-    render() {
-        let entries = <Spinner />;
+    let entries = <Spinner />;
 
-        if (!this.props.loading) {
-            entries = (
-                <div className="wrap">
-                    <h5>Today</h5>
-                    <ul>
-                        {this.props.entries.map(entry => {
-                            return (
-                                <Entry
-                                    key={entry.id}
-                                    created={entry.created}
-                                    icon={entry.type}
-                                    title={entry.title}
-                                    price={entry.price}
-                                    clicked={() =>
-                                        this.props.onRemoveEntry(this.props.userId, this.props.token, entry.id)
-                                    }
-                                />
-                            );
-                        })}
-                    </ul>
-                </div>
-            );
-        }
-        return <div className={classes.Diary}>{entries}</div>;
+    if (!props.loading) {
+        entries = (
+            <div className="wrap">
+                <h5>Today</h5>
+                <ul>
+                    {props.entries.map(entry => {
+                        return (
+                            <Entry
+                                key={entry.id}
+                                created={entry.created}
+                                icon={entry.type}
+                                title={entry.title}
+                                price={entry.price}
+                                clicked={() =>
+                                    props.onRemoveEntry(props.userId, props.token, entry.id)
+                                }
+                            />
+                        );
+                    })}
+                </ul>
+            </div>
+        );
     }
+    return <div className={classes.Diary}>{entries}</div>;
 }
 
 const mapStateToProps = state => {
@@ -62,4 +60,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withErrorHandler(Diary, axios));
+)(withErrorHandler(diary, axios));
