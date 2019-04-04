@@ -1,49 +1,47 @@
-import React, { Component } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Logout from './containers/Auth/Logout/Logout';
+import Spinner from './components/UI/Spinner/Spinner';
 import * as actions from './store/actions/index';
 
-const asyncDashboard = asyncComponent(() => {
+const Dashboard = React.lazy(() => {
     return import('./containers/Dashboard');
 });
 
-const asyncEntryAdd = asyncComponent(() => {
+const EntryAdd = React.lazy(() => {
     return import('./containers/Entry/EntryAdd/EntryAdd');
 });
 
-const asyncAuth = asyncComponent(() => {
+const Auth = React.lazy(() => {
     return import('./containers/Auth/Auth');
 });
 
-class App extends Component {
-    componentDidMount = () => {
-        this.props.onTryAutoSignUp();
-    };
+const app = props => {
+    useEffect(() => {
+        props.onTryAutoSignUp();
+    }, []);
 
-    render() {
-        let routes = (
+    let routes = (
+        <Switch>
+            <Route path="/" render={() => <Auth />} />
+        </Switch>
+    );
+
+    if (props.isAuthenticated) {
+        routes = (
             <Switch>
-                <Route path="/" component={asyncAuth} />
+                <Route path="/add" render={() => <EntryAdd />} />
+                {/* <Route path="/stats" component={Stats} /> */}
+                <Route path="/dashboard" render={() => <Dashboard />} />
+                <Route path="/logout" component={Logout} />
+                <Route path="/" render={() => <Dashboard />} />
             </Switch>
         );
-
-        if (this.props.isAuthenticated) {
-            routes = (
-                <Switch>
-                    <Route path="/add" component={asyncEntryAdd} />
-                    {/* <Route path="/stats" component={Stats} /> */}
-                    <Route path="/dashboard" component={asyncDashboard} />
-                    <Route path="/logout" component={Logout} />
-                    <Route path="/" component={asyncDashboard} />
-                </Switch>
-            );
-        }
-
-        return <div>{routes}</div>;
     }
+
+    return <div><Suspense fallback={<Spinner />}>{routes}</Suspense></div>;
 }
 
 const mapStateToProps = state => {
@@ -62,5 +60,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(App)
+    )(app)
 );
