@@ -9,21 +9,23 @@ import NavigationItem from './NavigationItem/NavigationItem';
 configure({ adapter: new Adapter() });
 
 describe('<NavigationItems />', () => {
-    let wrapper;
+  let wrapper;
 
-    beforeEach(() => {
-        wrapper = shallow(<NavigationItems />);
-    });
+  beforeEach(() => {
+    wrapper = shallow(<NavigationItems />);
+  });
 
-    it('should have a NavigationItems class', () => {
-        expect(wrapper.find('.NavigationItems')).toHaveLength(1);
-    });
+  it('should have a NavigationItems class', () => {
+    expect(wrapper.find('.NavigationItems')).toHaveLength(1);
+  });
 
-    it('should render four <NavigationItem /> elements', () => {
-        expect(wrapper.find(NavigationItem)).toHaveLength(4);
-    });
+  it('should render four <NavigationItem /> elements', () => {
+    expect(wrapper.find(NavigationItem)).toHaveLength(4);
+  });
 
-    it('should contain "Diary" NavigationItem', () => {
-        expect(wrapper.contains(<NavigationItem link="/diary">Diary</NavigationItem>)).toEqual(true);
-    });
+  it('should contain "Diary" NavigationItem', () => {
+    expect(
+      wrapper.contains(<NavigationItem link="/diary">Diary</NavigationItem>),
+    ).toEqual(true);
+  });
 });

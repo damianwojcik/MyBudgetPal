@@ -13,28 +13,31 @@ import entriesReducer from './store/reducers/entries';
 import { watchAuth, watchEntries } from './store/sagas';
 
 const composeEnhancers =
-    process.env.NODE_ENV === 'development'
-        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-        : compose;
+  process.env.NODE_ENV === 'development'
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    : compose;
 
 const rootReducer = combineReducers({
-    auth: authReducer,
-    entries: entriesReducer
+  auth: authReducer,
+  entries: entriesReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleware)),
+);
 
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchEntries);
 
 const app = (
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

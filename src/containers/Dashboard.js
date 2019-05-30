@@ -6,14 +6,14 @@ import Diary from '../containers/Diary/Diary';
 import NavigationItems from '../components/Navigation/NavigationItems/NavigationItems';
 
 const Dashboard = props => {
-    return (
-        <React.Fragment>
-            <Header />
-            {/* <Status data={this.props.entries} /> */}
-            <Diary />
-            <NavigationItems />
-        </React.Fragment>
-    );
+  return (
+    <React.Fragment>
+      <Header />
+      {/* <Status data={this.props.entries} /> */}
+      <Diary />
+      <NavigationItems />
+    </React.Fragment>
+  );
 };
 
 export default Dashboard;
