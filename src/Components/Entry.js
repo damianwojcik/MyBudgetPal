@@ -8,7 +8,7 @@ const Entry = props => {
       <i>{props.icon}</i>
       <span className={classes.title}>{props.title}</span>
       <small>{props.created}</small>
-      <span className={classes.price}>{props.price}</span>
+      <span className={classes.price}>{props.amount} PLN</span>
       <button onClick={() => props.clicked(props.id)}>&times;</button>
     </li>
   );

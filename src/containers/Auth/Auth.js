@@ -139,7 +139,9 @@ const auth = props => {
         {remindPassword}
       </div>
       <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
-      <Link to="/dashboard">Dashboard</Link>
+      <Link to="/dashboard">
+        <small>Dashboard</small>
+      </Link>
     </React.Fragment>
   );
 };

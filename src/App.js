@@ -42,7 +42,7 @@ const app = props => {
   }
 
   return (
-    <div>
+    <div style={{ minHeight: '100vh' }}>
       <Suspense fallback={<Spinner />}>{routes}</Suspense>
     </div>
   );

@@ -27,7 +27,7 @@ const diary = props => {
                 created={entry.created}
                 icon={entry.type}
                 title={entry.title}
-                price={entry.price}
+                amount={entry.amount}
                 clicked={() =>
                   props.onRemoveEntry(props.userId, props.token, entry.id)
                 }
