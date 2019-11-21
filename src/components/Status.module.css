@@ -1,0 +1,8 @@
+.Status {
+    display: flex;
+    background: #fff;
+}
+.Status div {
+    width: 33.333%;
+    padding: 18px 0 12px;
+}

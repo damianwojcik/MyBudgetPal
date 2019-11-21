@@ -1,0 +1,22 @@
+.Entry {
+    background: #fff;
+    padding: 7.5px 15px;
+    border-bottom: 1px solid #C8C7CC;
+    display: flex;
+}
+.Entry .title {
+    margin-left: 15px;
+}
+.Entry .price {
+    margin-left: auto;
+}
+.Entry button {
+    display: none;
+    background-color: red;
+    padding: 0 5px;
+    margin-left: 10px;
+    color: #fff;
+}
+.Entry:hover button {
+    display: block;
+}

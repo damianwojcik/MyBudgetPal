@@ -16,6 +16,7 @@ Created concept prototypes in `Figma` - [Link](https://www.figma.com/file/CnrZwX
 ## ⬇️ Installation
 ```
 npm i
+add .env file with proper credentials
 ```
 
 ## 🔧 Usage

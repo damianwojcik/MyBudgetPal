@@ -17,44 +17,44 @@ const entryAdd = props => {
       elementType: 'input',
       elementConfig: {
         type: 'text',
-        placeholder: 'Title',
+        placeholder: 'Title'
       },
       value: '',
       validation: {
         required: true,
-        minLength: 3,
+        minLength: 3
       },
       valid: false,
-      touched: false,
+      touched: false
     },
     type: {
       elementType: 'input',
       elementConfig: {
         type: 'teXt',
-        placeholder: 'Type',
+        placeholder: 'Type'
       },
       value: '',
       validation: {
         required: true,
-        minLength: 3,
+        minLength: 3
       },
       valid: false,
-      touched: false,
+      touched: false
     },
     amount: {
       elementType: 'input',
       elementConfig: {
         type: 'teXt',
-        placeholder: 'Amount',
+        placeholder: 'Amount'
       },
       value: '',
       validation: {
         required: true,
-        isNumeric: true,
+        isNumeric: true
       },
       valid: false,
-      touched: false,
-    },
+      touched: false
+    }
   });
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -63,13 +63,13 @@ const entryAdd = props => {
       value: event.target.value,
       valid: checkValidity(
         event.target.value,
-        controls[inputIdentifier].validation,
+        controls[inputIdentifier].validation
       ),
-      touched: true,
+      touched: true
     });
 
     const updatedcontrols = updateObject(controls, {
-      [inputIdentifier]: updatedFormElement,
+      [inputIdentifier]: updatedFormElement
     });
 
     let formIsValid = true;
@@ -96,7 +96,7 @@ const entryAdd = props => {
   for (let key in controls) {
     formElementsArray.push({
       id: key,
-      config: controls[key],
+      config: controls[key]
     });
   }
 
@@ -146,18 +146,18 @@ const mapStateToProps = state => {
     userId: state.auth.userId,
     loading: state.entries.loading,
     entryAction: state.entries.entryAction,
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onAddEntry: (userId, token, formData) =>
-      dispatch(actions.addEntry(userId, token, formData)),
+      dispatch(actions.addEntry(userId, token, formData))
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withErrorHandler(entryAdd, axios));
