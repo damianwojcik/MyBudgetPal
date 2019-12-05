@@ -12,6 +12,7 @@ const modal = props => {
         style={{
           transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
           opacity: props.show ? '1' : '0',
+          zIndex: props.show ? '500' : '-1'
         }}
       >
         {props.children}
@@ -23,5 +24,5 @@ export default React.memo(
   modal,
   (prevProps, nextProps) =>
     nextProps.show === prevProps.show &&
-    nextProps.children === prevProps.children,
+    nextProps.children === prevProps.children
 );
