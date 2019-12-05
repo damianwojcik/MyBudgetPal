@@ -25,8 +25,9 @@ const diary = props => {
               <Entry
                 key={entry.id}
                 created={entry.created}
-                icon={entry.type}
-                title={entry.title}
+                type={entry.type}
+                category={entry.category}
+                notes={entry.notes}
                 amount={entry.amount}
                 clicked={() =>
                   props.onRemoveEntry(props.userId, props.token, entry.id)
@@ -46,7 +47,7 @@ const mapStateToProps = state => {
     entries: state.entries.entries,
     token: state.auth.token,
     userId: state.auth.userId,
-    loading: state.entries.loading,
+    loading: state.entries.loading
   };
 };
 
@@ -55,11 +56,11 @@ const mapDispatchToProps = dispatch => {
     onFetchEntries: (userId, token) =>
       dispatch(actions.fetchEntries(userId, token)),
     onRemoveEntry: (userId, token, entryId) =>
-      dispatch(actions.removeEntry(userId, token, entryId)),
+      dispatch(actions.removeEntry(userId, token, entryId))
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(withErrorHandler(diary, axios));

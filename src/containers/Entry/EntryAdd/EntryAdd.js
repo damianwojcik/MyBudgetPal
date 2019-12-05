@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import * as actions from '../../../store/actions/index';
@@ -164,7 +164,7 @@ const entryAdd = props => {
 
   let categories = (
     <CategoriesWrapper>
-      <CategoryLabel grocery>
+      <CategoryLabel salary>
         <input
           type="radio"
           id="salary"
