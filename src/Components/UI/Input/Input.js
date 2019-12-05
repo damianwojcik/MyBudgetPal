@@ -1,13 +1,21 @@
 import React from 'react';
 
-import classes from './Input.module.css';
+import InputWrapper from '../../../components/styles/InputWrapper';
 
 const input = props => {
   let inputElement = null;
-  const inputClasses = [classes.InputElement];
+  const inputClasses = [`InputElement`];
 
   if (props.invalid && props.shouldValidate && props.touched) {
-    inputClasses.push(classes.Invalid);
+    inputClasses.push('Invalid');
+  }
+
+  if (props.class) {
+    inputClasses.push(`${props.class}`);
+  }
+
+  if (props.additionalClass) {
+    inputClasses.push(`${props.additionalClass}`);
   }
 
   switch (props.elementType) {
@@ -58,10 +66,10 @@ const input = props => {
   }
 
   return (
-    <div className={classes.Input}>
-      <label className={classes.Label}>{props.label}</label>
+    <InputWrapper customClass={props.class}>
+      <label className="Label">{props.label}</label>
       {inputElement}
-    </div>
+    </InputWrapper>
   );
 };
 

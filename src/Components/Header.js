@@ -1,26 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import classes from './Header.module.css';
+import StyledHeader from '../components/styles/StyledHeader';
 
 const Header = props => {
   const today = new Date();
   const currentMonth = today.toLocaleString('en-us', { month: 'long' });
+  let button = props.title ? (
+    <span>{props.title}</span>
+  ) : (
+    <div>
+      <button>&lt;</button>
+      <button>{currentMonth}</button>
+      <button>&gt;</button>
+    </div>
+  );
 
   return (
-    <div className={classes.Header}>
-      <Link to="/logout" className={classes.logout}>
+    <StyledHeader>
+      <Link to="/logout" className="logout">
         Logout
       </Link>
-      <div>
-        <button>&lt;</button>
-        <button>{currentMonth}</button>
-        <button>&gt;</button>
-      </div>
-      <Link to="/add" className={classes.add}>
+      {button}
+      <Link to="/add" className="add">
         +
       </Link>
-    </div>
+    </StyledHeader>
   );
 };
 
