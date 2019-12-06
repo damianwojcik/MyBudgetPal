@@ -5,20 +5,22 @@ import * as actions from '../../store/actions/index';
 import axios from '../../axios-entries';
 import Entry from '../../components/Entry';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import classes from './Diary.module.css';
+import StyledDiary from '../../components/styles/StyledDiary';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Status from '../../components/Status';
 
 const diary = props => {
   useEffect(() => {
     props.onFetchEntries(props.userId, props.token);
   }, []);
 
-  let entries = <Spinner />;
+  let content = <Spinner />;
 
   if (!props.loading) {
-    entries = (
-      <div className="wrap">
-        <h5>Today</h5>
+    content = (
+      <StyledDiary>
+        <Status data={props.entries} />
+        <h5 className="heading">Today</h5>
         <ul>
           {props.entries.map(entry => {
             return (
@@ -36,10 +38,10 @@ const diary = props => {
             );
           })}
         </ul>
-      </div>
+      </StyledDiary>
     );
   }
-  return <div className={classes.Diary}>{entries}</div>;
+  return <div>{content}</div>;
 };
 
 const mapStateToProps = state => {
