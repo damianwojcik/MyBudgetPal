@@ -1,7 +1,0 @@
-.PageContent {
-    min-height: calc(100vh - 95px)
-}
-
-.PageContent > * {
-    height: 100%;
-}

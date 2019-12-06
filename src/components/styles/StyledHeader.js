@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledHeader = styled.div`
   background: #152975;
   position: relative;
-  padding: 12px 15px;
+  padding: 12px 15px 11px;
   font-size: 17px;
   font-weight: 500;
   button,

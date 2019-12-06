@@ -7,26 +7,27 @@ const Header = props => {
   const today = new Date();
   const currentMonth = today.toLocaleString('en-us', { month: 'long' });
   let button = props.title ? (
-    <span>{props.title}</span>
+    <div>
+      <Link to="/" className="logout">
+        {'<'}
+      </Link>
+      <span>{props.title}</span>
+    </div>
   ) : (
     <div>
-      <button>&lt;</button>
-      <button>{currentMonth}</button>
-      <button>&gt;</button>
-    </div>
-  );
-
-  return (
-    <StyledHeader>
       <Link to="/logout" className="logout">
         Logout
       </Link>
-      {button}
+      <button>&lt;</button>
+      <button>{currentMonth}</button>
+      <button>&gt;</button>
       <Link to="/add" className="add">
         +
       </Link>
-    </StyledHeader>
+    </div>
   );
+
+  return <StyledHeader>{button}</StyledHeader>;
 };
 
 export default Header;

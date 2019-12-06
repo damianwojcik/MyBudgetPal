@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Diary from '../containers/Diary/Diary';
-import classes from './PageContent.module.css';
+import StyledPageContent from '../components/styles/StyledPageContent';
 
 const PageContent = props => {
   return (
-    <div className={classes.PageContent}>
+    <StyledPageContent>
       <Diary />
-    </div>
+    </StyledPageContent>
   );
 };
 
