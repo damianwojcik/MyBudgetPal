@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Logo from '../../components/UI/Logo/Logo';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import { updateObject, checkValidity } from '../../shared/utility';
+import LoginForm from '../../components/styles/LoginForm';
 
 const auth = props => {
   const [controls, setControls] = useState({
@@ -16,30 +16,30 @@ const auth = props => {
       elementType: 'input',
       elementConfig: {
         type: 'email',
-        placeholder: 'Your email address',
+        placeholder: 'Your email address'
       },
       value: '',
       validation: {
         required: true,
-        isEmail: true,
+        isEmail: true
       },
       valid: false,
-      touched: false,
+      touched: false
     },
     password: {
       elementType: 'input',
       elementConfig: {
         type: 'password',
-        placeholder: 'Your password',
+        placeholder: 'Your password'
       },
       value: '',
       validation: {
         required: true,
-        minLength: 6,
+        minLength: 6
       },
       valid: false,
-      touched: false,
-    },
+      touched: false
+    }
   });
   const [isSignup, setIsSignup] = useState(false);
 
@@ -49,10 +49,10 @@ const auth = props => {
         value: event.target.value,
         valid: checkValidity(
           event.target.value,
-          controls[controlName].validation,
+          controls[controlName].validation
         ),
-        touched: true,
-      }),
+        touched: true
+      })
     });
     setControls(updatedControls);
   };
@@ -70,7 +70,7 @@ const auth = props => {
   for (let key in controls) {
     formElementsArray.push({
       id: key,
-      config: controls[key],
+      config: controls[key]
     });
   }
 
@@ -104,20 +104,12 @@ const auth = props => {
     </p>
   );
 
-  let remindPassword = (
-    <a className={classes.remindPassword} href="/">
-      Forgot password?
-    </a>
-  );
-
   if (isSignup) {
     caption = (
       <p>
         Have an account? <button onClick={switchAuthModeHandler}>Log in</button>
       </p>
     );
-
-    remindPassword = null;
   }
 
   let authRedirect = null;
@@ -128,20 +120,16 @@ const auth = props => {
 
   return (
     <React.Fragment>
-      <div className={classes.Auth}>
+      <LoginForm>
         {authRedirect}
         <Logo />
-        {errorMessage}
+        <div className="errorMessage">{errorMessage}</div>
         <form onSubmit={submitHandler}>
           {form}
           <Button btnType="fullWidth">{isSignup ? 'Sign Up' : 'Log In'}</Button>
         </form>
-        {remindPassword}
-      </div>
-      <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
-      <Link to="/dashboard">
-        <small>Dashboard</small>
-      </Link>
+      </LoginForm>
+      <div className="caption">{caption}</div>
     </React.Fragment>
   );
 };
@@ -150,18 +138,15 @@ const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignup) =>
-      dispatch(actions.auth(email, password, isSignup)),
+      dispatch(actions.auth(email, password, isSignup))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(auth);
+export default connect(mapStateToProps, mapDispatchToProps)(auth);

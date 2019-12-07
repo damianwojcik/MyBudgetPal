@@ -50,19 +50,14 @@ const app = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignUp: () => dispatch(actions.authCheckState()),
+    onTryAutoSignUp: () => dispatch(actions.authCheckState())
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(app),
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
