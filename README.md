@@ -1,5 +1,8 @@
 # MyBudgetPal 📈
 
+![Dashboard](dashboard.jpg)
+![Add new](addnew.jpg)
+
 ## ❓ What
 Web App used to tracking of house budget. Inspired by [MyFitnessPal](https://www.myfitnesspal.com/). Created to monitor daily incomes and expenses. Improving habit of saving and wise spending of money.
 
