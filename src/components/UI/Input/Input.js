@@ -2,7 +2,7 @@ import React from 'react';
 
 import InputWrapper from '../../../components/styles/InputWrapper';
 
-const input = props => {
+const Input = props => {
   let inputElement = null;
   const inputClasses = [`InputElement`];
 
@@ -73,4 +73,4 @@ const input = props => {
   );
 };
 
-export default input;
+export default Input;

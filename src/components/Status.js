@@ -2,8 +2,7 @@ import React from 'react';
 
 import StyledStatus from '../components/styles/StyledStatus';
 
-const Status = props => {
-  const data = [...props.data];
+const Status = ({ data }) => {
   let status = {
     incomes: 0,
     expenses: 0

@@ -22,7 +22,7 @@ export function* authUserSaga(action) {
   const authData = {
     email: action.email,
     password: action.password,
-    returnSecureToken: true,
+    returnSecureToken: true
   };
   let url =
     'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=';
@@ -34,13 +34,13 @@ export function* authUserSaga(action) {
   try {
     const response = yield axios.post(url, authData);
     const expirationDate = yield new Date(
-      new Date().getTime() + response.data.expiresIn * 1000,
+      new Date().getTime() + response.data.expiresIn * 1000
     );
     yield localStorage.setItem('token', response.data.idToken);
     yield localStorage.setItem('expirationDate', expirationDate);
     yield localStorage.setItem('userId', response.data.localId);
     yield put(
-      actions.authSuccess(response.data.idToken, response.data.localId),
+      actions.authSuccess(response.data.idToken, response.data.localId)
     );
     yield put(actions.checkAuthTimeout(response.data.expiresIn));
   } catch (error) {
@@ -54,7 +54,7 @@ export function* authCheckStateSaga(action) {
     yield put(actions.logout());
   } else {
     const expirationDate = yield new Date(
-      localStorage.getItem('expirationDate'),
+      localStorage.getItem('expirationDate')
     );
     if (expirationDate <= new Date()) {
       yield put(actions.logout());
@@ -63,8 +63,8 @@ export function* authCheckStateSaga(action) {
       yield put(actions.authSuccess(token, userId));
       yield put(
         actions.checkAuthTimeout(
-          (expirationDate.getTime() - new Date().getTime()) / 1000,
-        ),
+          (expirationDate.getTime() - new Date().getTime()) / 1000
+        )
       );
     }
   }

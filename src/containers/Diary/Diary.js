@@ -9,20 +9,27 @@ import StyledDiary from '../../components/styles/StyledDiary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Status from '../../components/Status';
 
-const diary = props => {
+const Diary = ({
+  userId,
+  token,
+  loading,
+  entries,
+  onRemoveEntry,
+  onFetchEntries
+}) => {
   useEffect(() => {
-    props.onFetchEntries(props.userId, props.token);
+    onFetchEntries(userId, token);
   }, []);
 
   let content = <Spinner />;
 
-  if (!props.loading) {
+  if (!loading) {
     content = (
       <StyledDiary>
-        <Status data={props.entries} />
+        <Status data={entries} />
         <h5 className="heading">Today</h5>
         <ul>
-          {props.entries.map(entry => {
+          {entries.map(entry => {
             return (
               <Entry
                 key={entry.id}
@@ -31,9 +38,7 @@ const diary = props => {
                 category={entry.category}
                 notes={entry.notes}
                 amount={entry.amount}
-                clicked={() =>
-                  props.onRemoveEntry(props.userId, props.token, entry.id)
-                }
+                clicked={() => onRemoveEntry(userId, token, entry.id)}
               />
             );
           })}
@@ -65,4 +70,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withErrorHandler(diary, axios));
+)(withErrorHandler(Diary, axios));

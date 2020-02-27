@@ -4,13 +4,13 @@ import Header from '../components/Header';
 import PageContent from '../components/PageContent';
 import NavigationItems from '../components/Navigation/NavigationItems/NavigationItems';
 
-const Dashboard = props => {
+const Dashboard = () => {
   return (
-    <React.Fragment>
+    <>
       <Header />
       <PageContent />
       <NavigationItems />
-    </React.Fragment>
+    </>
   );
 };
 

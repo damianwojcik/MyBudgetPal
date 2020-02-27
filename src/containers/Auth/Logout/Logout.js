@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index';
 
-const logout = props => {
+const logout = ({ onLogout }) => {
   useEffect(() => {
-    props.onLogout();
+    onLogout();
   }, []);
 
   return <Redirect to="/" />;
@@ -17,11 +17,8 @@ const mapDispatchToProps = dispatch => {
     onLogout: () => {
       dispatch(actions.logout());
       dispatch(actions.entriesClear());
-    },
+    }
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(logout);
+export default connect(null, mapDispatchToProps)(logout);

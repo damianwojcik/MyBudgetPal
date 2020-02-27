@@ -3,16 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 import classes from './NavigationItem.module.css';
 
-const NavigationItem = props => (
+const NavigationItem = ({ link, children }) => (
   <div className={classes.NavigationItem}>
     <NavLink
       exact
-      to={props.link}
+      to={link}
       activeStyle={{
-        color: '#152975',
+        color: '#152975'
       }}
     >
-      {props.children}
+      {children}
     </NavLink>
   </div>
 );

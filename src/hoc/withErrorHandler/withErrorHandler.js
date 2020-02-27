@@ -8,12 +8,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
     const [error, clearError] = useHttpErrorHandler(axios);
 
     return (
-      <React.Fragment>
+      <>
         <Modal show={error} modalClosed={clearError}>
           {error ? error.message : ''}
         </Modal>
         <WrappedComponent {...props} />
-      </React.Fragment>
+      </>
     );
   };
 };

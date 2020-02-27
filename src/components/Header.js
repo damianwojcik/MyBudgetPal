@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 import StyledHeader from '../components/styles/StyledHeader';
 
-const Header = props => {
+const Header = ({ title }) => {
   const today = new Date();
   const currentMonth = today.toLocaleString('en-us', { month: 'long' });
-  let button = props.title ? (
+  let button = title ? (
     <div>
       <Link to="/" className="logout">
         {'<'}
       </Link>
-      <span>{props.title}</span>
+      <span>{title}</span>
     </div>
   ) : (
     <div>

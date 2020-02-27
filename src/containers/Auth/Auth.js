@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Logo from '../../components/UI/Logo/Logo';
 import Input from '../../components/UI/Input/Input';
@@ -10,36 +10,36 @@ import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import { updateObject, checkValidity } from '../../shared/utility';
 
-const auth = props => {
+const auth = ({ loading, error, isAuthenticated, onAuth }) => {
   const [controls, setControls] = useState({
     email: {
       elementType: 'input',
       elementConfig: {
         type: 'email',
-        placeholder: 'Your email address',
+        placeholder: 'Your email address'
       },
       value: '',
       validation: {
         required: true,
-        isEmail: true,
+        isEmail: true
       },
       valid: false,
-      touched: false,
+      touched: false
     },
     password: {
       elementType: 'input',
       elementConfig: {
         type: 'password',
-        placeholder: 'Your password',
+        placeholder: 'Your password'
       },
       value: '',
       validation: {
         required: true,
-        minLength: 6,
+        minLength: 6
       },
       valid: false,
-      touched: false,
-    },
+      touched: false
+    }
   });
   const [isSignup, setIsSignup] = useState(false);
 
@@ -49,17 +49,17 @@ const auth = props => {
         value: event.target.value,
         valid: checkValidity(
           event.target.value,
-          controls[controlName].validation,
+          controls[controlName].validation
         ),
-        touched: true,
-      }),
+        touched: true
+      })
     });
     setControls(updatedControls);
   };
 
   const submitHandler = event => {
     event.preventDefault();
-    props.onAuth(controls.email.value, controls.password.value, isSignup);
+    onAuth(controls.email.value, controls.password.value, isSignup);
   };
 
   const switchAuthModeHandler = () => {
@@ -70,7 +70,7 @@ const auth = props => {
   for (let key in controls) {
     formElementsArray.push({
       id: key,
-      config: controls[key],
+      config: controls[key]
     });
   }
 
@@ -87,14 +87,14 @@ const auth = props => {
     />
   ));
 
-  if (props.loading) {
+  if (loading) {
     form = <Spinner />;
   }
 
   let errorMessage = null;
 
-  if (props.error) {
-    errorMessage = <p>{props.error.message}</p>;
+  if (error) {
+    errorMessage = <p>{error.message}</p>;
   }
 
   let caption = (
@@ -122,12 +122,12 @@ const auth = props => {
 
   let authRedirect = null;
 
-  if (props.isAuthenticated) {
+  if (isAuthenticated) {
     authRedirect = <Redirect to="/dashboard" />;
   }
 
   return (
-    <React.Fragment>
+    <>
       <div className={classes.Auth}>
         {authRedirect}
         <Logo />
@@ -139,10 +139,7 @@ const auth = props => {
         {remindPassword}
       </div>
       <div className={[classes.Auth, classes.caption].join(' ')}>{caption}</div>
-      <Link to="/dashboard">
-        <small>Dashboard</small>
-      </Link>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -150,18 +147,15 @@ const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    isAuthenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignup) =>
-      dispatch(actions.auth(email, password, isSignup)),
+      dispatch(actions.auth(email, password, isSignup))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(auth);
+export default connect(mapStateToProps, mapDispatchToProps)(auth);

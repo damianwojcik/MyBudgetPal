@@ -11,7 +11,7 @@ export default httpClient => {
     res => res,
     err => {
       setError(err);
-    },
+    }
   );
 
   useEffect(() => {
