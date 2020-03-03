@@ -5,7 +5,7 @@ import {
   logoutSaga,
   checkAuthTimeoutSaga,
   authUserSaga,
-  authCheckStateSaga,
+  authCheckStateSaga
 } from './auth';
 import { entriesFetchSaga, entryAddSaga, entryRemoveSaga } from './entries';
 
@@ -14,7 +14,7 @@ export function* watchAuth() {
     takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga),
     takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga),
     takeEvery(actionTypes.AUTH_USER, authUserSaga),
-    takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga),
+    takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga)
   ]);
 }
 
@@ -22,6 +22,6 @@ export function* watchEntries() {
   yield all([
     takeEvery(actionTypes.ENTRIES_FETCH, entriesFetchSaga),
     takeLatest(actionTypes.ENTRY_ADD, entryAddSaga),
-    takeLatest(actionTypes.ENTRY_REMOVE, entryRemoveSaga),
+    takeLatest(actionTypes.ENTRY_REMOVE, entryRemoveSaga)
   ]);
 }

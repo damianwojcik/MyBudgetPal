@@ -19,14 +19,14 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  entries: entriesReducer,
+  entries: entriesReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, sagaMiddleware)),
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 );
 
 sagaMiddleware.run(watchAuth);

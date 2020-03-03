@@ -6,7 +6,7 @@ const CategoryLabel = styled.div`
   width: 30px;
   height: 30px;
   margin: 0 7.5px;
-  svg {
+  img {
     position: absolute;
     left: 50%;
     top: 50%;
