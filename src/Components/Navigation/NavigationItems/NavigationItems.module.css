@@ -1,8 +1,0 @@
-.NavigationItems {
-    display: flex;
-    border-top: 1px solid #ddd;
-}
-
-.NavigationItems > *:not(:last-child) {
-    border-right: 1px solid #ddd;
-}
