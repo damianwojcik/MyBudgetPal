@@ -1,5 +1,4 @@
 import React from 'react';
-
 import StyledStatus from '../components/styles/StyledStatus';
 
 const Status = ({ data }) => {

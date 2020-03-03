@@ -1,31 +1,41 @@
 import React from 'react';
-
 import InputWrapper from '../../../components/styles/InputWrapper';
 
-const Input = props => {
+const Input = ({
+  invalid,
+  shouldValidate,
+  touched,
+  customClass,
+  additionalClass,
+  elementType,
+  elementConfig,
+  value,
+  label,
+  changed
+}) => {
   let inputElement = null;
   const inputClasses = [`InputElement`];
 
-  if (props.invalid && props.shouldValidate && props.touched) {
+  if (invalid && shouldValidate && touched) {
     inputClasses.push('Invalid');
   }
 
-  if (props.class) {
-    inputClasses.push(`${props.class}`);
+  if (customClass) {
+    inputClasses.push(`${customClass}`);
   }
 
-  if (props.additionalClass) {
-    inputClasses.push(`${props.additionalClass}`);
+  if (additionalClass) {
+    inputClasses.push(`${additionalClass}`);
   }
 
-  switch (props.elementType) {
+  switch (elementType) {
     case 'input':
       inputElement = (
         <input
           className={inputClasses.join(' ')}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
       break;
@@ -33,9 +43,9 @@ const Input = props => {
       inputElement = (
         <textarea
           className={inputClasses.join(' ')}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
       break;
@@ -43,10 +53,10 @@ const Input = props => {
       inputElement = (
         <select
           className={inputClasses.join(' ')}
-          value={props.value}
-          onChange={props.changed}
+          value={value}
+          onChange={changed}
         >
-          {props.elementConfig.options.map(option => (
+          {elementConfig.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.displayValue}
             </option>
@@ -58,16 +68,16 @@ const Input = props => {
       inputElement = (
         <input
           className={inputClasses.join(' ')}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
   }
 
   return (
-    <InputWrapper customClass={props.class}>
-      <label className="Label">{props.label}</label>
+    <InputWrapper customClass={customClass}>
+      <label className="Label">{label}</label>
       {inputElement}
     </InputWrapper>
   );

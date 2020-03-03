@@ -104,6 +104,11 @@ const entryAdd = props => {
       },
       valid: false,
       touched: false
+    },
+    date: {
+      value: '',
+      valid: false,
+      touched: false
     }
   });
   const [formIsValid, setFormIsValid] = useState(false);
@@ -318,7 +323,7 @@ const entryAdd = props => {
         </TypeLabel>
       </Flex>
       <Input
-        class={`Amount`}
+        customClass={`Amount`}
         additionalClass={controls.type.value ? controls.type.value : ''}
         elementType={controls.amount.elementType}
         elementConfig={controls.amount.elementConfig}
@@ -330,12 +335,41 @@ const entryAdd = props => {
       />
       {categories}
       <FlexMenu>
-        <button className="active">Today</button>
-        <button>Yesterday</button>
-        <button>Select date</button>
+        <button
+          onClick={() =>
+            setControls({
+              ...controls,
+              date: {
+                value: Date.now(),
+                valid: true,
+                touched: true
+              }
+            })
+          }
+          className="active"
+          type="button"
+        >
+          Today
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            setControls({
+              ...controls,
+              date: {
+                value: new Date(new Date().setDate(new Date().getDate() - 1)),
+                valid: true,
+                touched: true
+              }
+            })
+          }
+        >
+          Yesterday
+        </button>
+        <button type="button">Select date</button>
       </FlexMenu>
       <Input
-        class={`Notes`}
+        customClass={`Notes`}
         elementType={controls.notes.elementType}
         elementConfig={controls.notes.elementConfig}
         value={controls.notes.value}

@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import * as actions from '../../../store/actions/index';
 
-const logout = ({ onLogout }) => {
+const Logout = ({ onLogout }) => {
   useEffect(() => {
     onLogout();
   }, []);
@@ -21,4 +20,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(logout);
+export default connect(null, mapDispatchToProps)(Logout);

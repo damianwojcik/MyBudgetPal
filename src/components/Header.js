@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import StyledHeader from '../components/styles/StyledHeader';
 
 const Header = ({ title }) => {

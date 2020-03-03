@@ -10,7 +10,7 @@ import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import { updateObject, checkValidity } from '../../shared/utility';
 
-const auth = ({ loading, error, isAuthenticated, onAuth }) => {
+const Auth = ({ loading, error, isAuthenticated, onAuth }) => {
   const [controls, setControls] = useState({
     email: {
       elementType: 'input',
@@ -158,4 +158,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

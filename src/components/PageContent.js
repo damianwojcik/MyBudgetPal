@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Diary from '../containers/Diary/Diary';
 import StyledPageContent from '../components/styles/StyledPageContent';
 
